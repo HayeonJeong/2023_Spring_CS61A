@@ -45,7 +45,7 @@ def two_of_three(i, j, k):
     >>> two_of_three(5, 5, 5)
     50
     """
-    return _____
+    return sorted([i, j, k])[0]**2 + sorted([i, j, k])[1]**2
 
 
 def two_of_three_syntax_check():
