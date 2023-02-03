@@ -70,6 +70,21 @@ def largest_factor(n):
     1
     """
     "*** YOUR CODE HERE ***"
+    count = 0
+    list = []
+    for i in range(n):
+        if (n % (i + 1) == 0):
+            list.append(i + 1)
+            #print("list: ", list)
+            count += 1
+    list.remove(n)
+
+    if count == 1: #소수일 경우
+        return print(1)
+        
+    return print(list[-1])
+        
+    
 
 
 def hailstone(n):
