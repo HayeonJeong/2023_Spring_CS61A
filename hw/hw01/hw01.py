@@ -107,3 +107,19 @@ def hailstone(n):
     1
     """
     "*** YOUR CODE HERE ***"
+
+    count = 0
+    while True:
+        if n == 1:
+            print(n)
+            count += 1
+            break
+
+        print(n)
+        if n % 2 == 0: #짝수
+            n = n // 2
+        else:
+            n = n * 3 + 1
+        count += 1
+
+    return count
