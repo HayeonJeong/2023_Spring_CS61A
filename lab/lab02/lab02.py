@@ -31,7 +31,11 @@ def composite_identity(f, g):
     >>> b1(4)                            # (4 + 1)^2 != 4^2 + 1
     False
     """
-    "*** YOUR CODE HERE ***"
+    f_g = composer(f, g)
+    g_f = composer(g, f)
+
+    return lambda x: f_g(x) == g_f(x)
+
 
 
 def count_cond(condition):
