@@ -138,7 +138,21 @@ def funception(func1, start):
     >>> func2_6 = funception(func1, -1)
     >>> func2_6(4)    # Returns None since start < 0
     """
-    "*** YOUR CODE HERE ***"
+    def func1(num):
+        return num + 1
+
+    def func(num):
+        if start < 0:
+            return None
+        elif start >= num:
+            return func1(start)
+        else:
+            total = 1
+            for i in range(start, num, 1):
+                total *= func1(i)
+            return total
+
+    return func
 
 
 
@@ -153,7 +167,7 @@ def mul_by_num(num):
     >>> y(-4)
     -8
     """
-    return ______
+    return lambda x: x * num
 
 
 def mod_maker():
@@ -167,7 +181,7 @@ def mod_maker():
     >>> mod(8,4) # 8 % 4
     True
     """
-    return ______
+    return lambda x, y: x % y if x % y != 0 else True
 
 
 def add_results(f1, f2):
@@ -190,7 +204,7 @@ def add_results(f1, f2):
     >>> a3(4)
     44
     """
-    return ______
+    return lambda x: f1(x) + f2(x)
 
 
 def lambda_math_syntax_check():
