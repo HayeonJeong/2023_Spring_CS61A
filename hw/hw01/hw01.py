@@ -13,11 +13,12 @@ def a_plus_abs_b(a, b):
     >>> a_plus_abs_b(-1, -4)
     3
     """
+
     if b < 0:
-        b = -b
-        f = print
+        f = sub
     else:
-        f = print
+        f = add
+
     return f(a, b)
 
 
