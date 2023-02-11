@@ -18,7 +18,7 @@ def a_plus_abs_b(a, b):
         f = print(a + b)
     else:
         f = print(a + b)
-    return f(a, b)
+    return f
 
 
 def a_plus_abs_b_syntax_check():
