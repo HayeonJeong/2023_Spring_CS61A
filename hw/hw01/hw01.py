@@ -15,10 +15,10 @@ def a_plus_abs_b(a, b):
     """
     if b < 0:
         b = -b
-        f = print(a + b)
+        f = print
     else:
-        f = print(a + b)
-    return f
+        f = print
+    return f(a, b)
 
 
 def a_plus_abs_b_syntax_check():
