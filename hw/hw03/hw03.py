@@ -25,11 +25,11 @@ def num_eights(n):
     True
     """
     "*** YOUR CODE HERE ***"
-    if n == 0:
+    if n == 0: #제일 큰 자릿수까지 다 보면
         return 0
 
-    if n % 10 == 8:
-        return 1 + num_eights(n // 10)
+    if n % 10 == 8: # 8이면
+        return 1 + num_eights(n // 10) # +1
     else:
         return 0 + num_eights(n // 10)
 
@@ -69,6 +69,33 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n == 1:
+        return 1
+
+    def direction(n):
+        if n == 1:
+            return 1
+
+        if n % 8 == 0 or num_eights(n) > 0:
+            return -1 * direction(n - 1)    # flip the previous direction
+        else:
+            return direction(n - 1) # same with previous direction
+    
+    return pingpong(n - 1) + direction(n-1) # 이전 숫자에 +1을 할 지, -1을 할 지 direction(n-1)이 결정
+    # direction(n-1) means: n-1 ---(+1 or -1)---> n
+
+    '''
+    def helper(n, index, curr_num, dir):
+        if index == n:
+            return curr_num
+            
+        if index % 8 == 0 or num_eights(index) > 0:
+            return helper(n, index + 1, curr_num - dir, -dir)
+        else:
+            return helper(n, index + 1, curr_num + dir, dir)
+    
+    return helper(n, 1, 1, 1)
+    '''
 
 
 def next_larger_coin(coin):
@@ -125,3 +152,16 @@ def count_coins(change):
     True
     """
     "*** YOUR CODE HERE ***"
+
+    def countHelper(coin, amount):
+        if coin < 0:
+            return 0
+        elif coin == 0:
+            return 1
+        elif amount == 1:
+            return 0
+        else:
+            return countHelper(coin - coin % amount, amount) + countHelper(coin % amount, next_smaller_coin(amount))
+    
+    return countHelper(change, 25)
+    
