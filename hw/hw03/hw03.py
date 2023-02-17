@@ -153,15 +153,16 @@ def count_coins(change):
     """
     "*** YOUR CODE HERE ***"
 
-    def countHelper(coin, amount):
-        if coin < 0:
-            return 0
-        elif coin == 0:
+    def countHelper(change, partition):
+        if change == 0: #found a valid condition
             return 1
-        elif amount == 1:
+        elif change < 0: #overshot
+            return 0
+        elif partition == None: #nothing else to partition by
             return 0
         else:
-            return countHelper(coin - coin % amount, amount) + countHelper(coin % amount, next_smaller_coin(amount))
+            #print(change - partition, partition, change, next_smaller_coin(partition))
+            return countHelper(change - partition, partition) + countHelper(change, next_smaller_coin(partition))
     
     return countHelper(change, 25)
     
