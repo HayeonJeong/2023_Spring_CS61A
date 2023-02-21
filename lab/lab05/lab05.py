@@ -15,7 +15,17 @@ def flatten(s):
     [[1, [1, 1]], 1, [1, 1]]
     """
     "*** YOUR CODE HERE ***"
+    s_list = []
+    def flatten_recursive(s, s_list):
+        for i in range(len(s)):
+            if (type(s[i]) == list):
+                flatten_recursive(s[i], s_list)
+            else:
+                s_list.append(s[i])
 
+        return s_list
+    
+    return flatten_recursive(s, s_list)
 
 def my_map(fn, seq):
     """Applies fn onto each element in seq and returns a list.
@@ -29,7 +39,7 @@ def my_map(fn, seq):
     2023
     [None, None, None]
     """
-    return ______
+    return [fn(s) for s in seq]
 
 
 def my_filter(pred, seq):
@@ -48,7 +58,7 @@ def my_filter(pred, seq):
     >>> my_filter(lambda x: max(5, x) == 5, [1, 2, 3, 4, 5, 6, 7])
     [1, 2, 3, 4, 5]
     """
-    return ______
+    return [s for s in seq if pred(s) == True]
 
 
 def my_reduce(combiner, seq):
@@ -64,6 +74,10 @@ def my_reduce(combiner, seq):
     11
     """
     "*** YOUR CODE HERE ***"
+    result = seq[0]
+    for i in range(1, len(seq)):
+        result = combiner(result, seq[i])
+    return result
 
 
 def my_map_syntax_check():
@@ -103,6 +117,11 @@ def distance(city_a, city_b):
     5.0
     """
     "*** YOUR CODE HERE ***"
+    x1 = get_lat(city_a)
+    x2 = get_lat(city_b)
+    y1 = get_lon(city_a)
+    y2 = get_lon(city_b)
+    return sqrt((x1 - x2)**2 + (y1 - y2)**2)
 
 
 def closer_city(lat, lon, city_a, city_b):
@@ -121,6 +140,11 @@ def closer_city(lat, lon, city_a, city_b):
     'Bucharest'
     """
     "*** YOUR CODE HERE ***"
+    new_city = make_city('New_City', lat, lon)
+    if distance(new_city, city_a) >= distance(new_city, city_b):
+        return get_name(city_b)
+    else:
+        return get_name(city_a)
 
 
 def check_city_abstraction():
