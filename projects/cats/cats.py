@@ -172,6 +172,17 @@ def autocorrect(typed_word, word_list, diff_function, limit):
     """
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    min_word = word_list[0]
+    if typed_word in word_list:
+        return typed_word
+    else:    
+        for i in word_list:
+            if diff_function(typed_word, i, limit) < diff_function(typed_word, min_word, limit):
+                min_word = i
+        if diff_function(typed_word, min_word, limit) > limit:
+            return typed_word
+        else: 
+            return min_word
     # END PROBLEM 5
 
 
@@ -198,9 +209,24 @@ def feline_fixes(typed, source, limit):
     5
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
+    #assert False, 'Remove this line'
+    total = abs(len(typed) - len(source))
+    len_list = [len(typed), len(source)]
+    
+    def feline_recursion(index, total):
+        if (index == min(len_list) or total > limit):
+            return total
+        if typed[index] != source[index]:
+            return feline_recursion(index + 1, total + 1)
+        return feline_recursion(index + 1, total)
+    
+    total = feline_recursion(0, total)
+        
+    if total > limit:
+        return limit + 1
+    return total
     # END PROBLEM 6
-
+        
 
 def minimum_mewtations(typed, source, limit):
     """A diff function that computes the edit distance from TYPED to SOURCE.
@@ -217,23 +243,33 @@ def minimum_mewtations(typed, source, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    assert False, 'Remove this line'
-    if ___________:  # Base cases should go here, you may add more base cases as needed.
+    #assert False, 'Remove this line'
+    if typed == source:  # Base cases should go here, you may add more base cases as needed.
         # BEGIN
         "*** YOUR CODE HERE ***"
+        return 0
         # END
+    if len(typed) == 0 or len(source) == 0:
+        return abs(len(typed) - len(source))
+    if limit < 0:
+        return 0
+
     # Recursive cases should go below here
-    if ___________:  # Feel free to remove or add additional cases
+    if typed[0] == source[0]:  # Feel free to remove or add additional cases
         # BEGIN
         "*** YOUR CODE HERE ***"
+        return minimum_mewtations(typed[1:], source[1:], limit)
         # END
     else:
-        add = ...  # Fill in these lines
-        remove = ...
-        substitute = ...
         # BEGIN
         "*** YOUR CODE HERE ***"
+        add = 1 + minimum_mewtations(typed, source[1:], limit - 1)
+        remove = 1 + minimum_mewtations(typed[1:], source, limit - 1)
+        substitute = 1 + minimum_mewtations(typed[1:], source[1:], limit - 1)
+
+        return min(add, remove, substitute)
         # END
+        
 
 
 def final_diff(typed, source, limit):
@@ -274,7 +310,15 @@ def report_progress(typed, prompt, user_id, upload):
     0.2
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    player_ratio = 0
+    for i in range(0, len(typed)):
+        if typed[i] == prompt[i]:
+            player_ratio += 1
+        else:
+            break
+    state = {'id': user_id, 'progress': player_ratio / len(prompt)}
+    upload(state)
+    return player_ratio / len(prompt)
     # END PROBLEM 8
 
 
@@ -296,7 +340,10 @@ def time_per_word(words, times_per_player):
     [[6, 3, 6, 2], [10, 6, 1, 2]]
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    times = []
+    for player in times_per_player:
+        times.append([player[n+1] - player[n] for n in range(0, len(player)-1)])
+    return match(words, times)
     # END PROBLEM 9
 
 
@@ -320,7 +367,16 @@ def fastest_words(match):
     # BEGIN PROBLEM 10
     "*** YOUR CODE HERE ***"
     # END PROBLEM 10
-
+    list = [[] for i in player_indices]
+    for word in word_indices:
+        fast_time = float('inf')
+        fast_player = None
+        for player in player_indices:
+            if time(match, player, word) < fast_time:
+                fast_time = time(match, player, word)
+                fast_player = player
+        list[fast_player].append(get_word(match, word))
+    return list
 
 def match(words, times):
     """A data abstraction containing all words typed and their times.
