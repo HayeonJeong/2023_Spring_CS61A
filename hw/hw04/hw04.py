@@ -1,4 +1,4 @@
-passphrase = '*** PASSPHRASE HERE ***'
+passphrase = 'allegoryofthecave'
 
 
 def midsem_survey(p):
@@ -65,12 +65,15 @@ def planet(mass):
     """Construct a planet of some mass."""
     assert mass > 0
     "*** YOUR CODE HERE ***"
+    return ['planet', mass]
 
 
 def mass(w):
     """Select the mass of a planet."""
     assert is_planet(w), 'must call mass on a planet'
     "*** YOUR CODE HERE ***"
+    return w[1]
+
 
 
 def is_planet(w):
