@@ -218,7 +218,7 @@ def replace_loki_at_leaf(t, lokis_replacement):
     "*** YOUR CODE HERE ***"
     if is_leaf(t):  #끝이면 (mobile에서 planet 개념)
         if label(t) == 'loki':
-            return tree(lokis_replacement)
+            return tree(lokis_replacement)  #label = lokis_replacement: 내 처음 코드
         return t    #loki아니면 그냥 끝. t = leaf. leaf를 리턴하고 recursion end
     
     elif is_tree(t):
@@ -261,6 +261,14 @@ def has_path(t, word):
     """
     assert len(word) > 0, 'no path for empty word.'
     "*** YOUR CODE HERE ***"
+    if label(t) == word[0]:
+        if len(word) == 1:
+            return True
+        for b in branches(t):   #모든 branch 확인
+            if has_path(b, word[1:]):   #그 branch의 has_path == True이면
+                return True
+    
+    return False
 
 
 def str_interval(x):
