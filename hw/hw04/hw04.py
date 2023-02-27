@@ -74,8 +74,6 @@ def mass(w):
     "*** YOUR CODE HERE ***"
     return w[1]
 
-
-
 def is_planet(w):
     """Whether w is a planet."""
     return type(w) == list and len(w) == 2 and w[0] == 'planet'
@@ -130,7 +128,22 @@ def balanced(m):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return True
+    
+    #left(m) = left 'arm'
+    #right(m) = right 'arm'
+    #end(left(m)) = left arm에 달린 'planet' or 'mobile'
+    #end(right(m)) = right arm에 달린 'planet' or 'mobile'
 
+    left_torque = length(left(m)) * total_weight(end(left(m)))
+    right_torque = length(right(m)) * total_weight(end(right(m)))
+
+    if left_torque == right_torque: #1.
+        #balanced's input should be 'planet' or 'mobile' -> end()
+        if balanced(end(left(m))) and balanced(end(right(m))): #2.
+            return True
+    return False
 
 def totals_tree(m):
     """Return a tree representing the mobile with its total weight at the root.
