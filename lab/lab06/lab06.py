@@ -40,6 +40,14 @@ def insert_items(lst, entry, elem):
     True
     """
     "*** YOUR CODE HERE ***"
+    if entry in lst:
+        i = 0
+        while i < len(lst): #len(lst) is changing while 'while' is running
+            if lst[i] == entry:
+                lst.insert(i + 1, elem)
+                i += 1  #추가한 elem 빼고 그 다음부터 추적해야.
+            i += 1
+    return lst
 
 
 def count_occurrences(t, n, x):
