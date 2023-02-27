@@ -216,6 +216,17 @@ def replace_loki_at_leaf(t, lokis_replacement):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_leaf(t):
+        if label(t) == 'loki':
+            return tree(lokis_replacement)
+        return t
+    
+    elif is_tree(t):
+        #branch는 mobile처럼 두 개가 아님. 그래서 for문을 돌려야 함.
+        replace_list = []
+        for b in branches(t):
+            replace_list.append(replace_loki_at_leaf(b, lokis_replacement))
+        return tree(label(t), replace_list)
 
 
 def has_path(t, word):
