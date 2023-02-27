@@ -128,7 +128,7 @@ def balanced(m):
     True
     """
     "*** YOUR CODE HERE ***"
-    if is_planet(m):
+    if is_planet(m):    #if there is only one planet
         return True
     
     #left(m) = left 'arm'
@@ -175,6 +175,15 @@ def totals_tree(m):
     True
     """
     "*** YOUR CODE HERE ***"
+    #planet는 tree의 가장 아래 부분이기 때문에 recursion을 끝냄.
+    if is_planet(m):
+        return tree(mass(m))
+    
+    #mobile이면, 아래에 tree 하나를 더 만듦.
+    elif is_mobile(m):
+        #total_weight(m): a tree whose label is that mobile's total weight
+        #[A, B] = branches: totals_trees for the ends of its arms
+        return tree(total_weight(m), [totals_tree(end(left(m))), totals_tree(end(right(m)))])
 
 
 def replace_loki_at_leaf(t, lokis_replacement):
