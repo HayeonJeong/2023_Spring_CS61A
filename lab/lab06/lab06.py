@@ -104,6 +104,21 @@ def repeated(t, k):
     """
     assert k > 1
     "*** YOUR CODE HERE ***"
+    curr_num = next(t)
+    next_num = next(t)
+    k_count = 1
+    while next_num != StopIteration:
+        if k_count == k:
+            return curr_num
+        
+        if curr_num == next_num:
+            k_count += 1
+        else:
+            curr_num = next_num
+            k_count = 1
+        
+        next_num = next(t, StopIteration)
+    return curr_num
 
 
 def partial_reverse(lst, start):
