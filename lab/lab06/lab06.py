@@ -118,6 +118,10 @@ def repeated(t, k):
             k_count = 1
         
         next_num = next(t, StopIteration)
+        # next() method takes two arguments.
+        # iterator (required): the iterator from which next item is to returned
+        # default (optional): value to be returned of iterator is exhausted else 'StopIteration' error is raised
+        
     return curr_num
 
 
