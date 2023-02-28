@@ -42,11 +42,14 @@ def insert_items(lst, entry, elem):
     "*** YOUR CODE HERE ***"
     if entry in lst:
         i = 0
+        #for문의 range는 값이 정해져 있기 때문에, len(lst)가 바뀌는데 대비하여 while문 사용.
         while i < len(lst): #len(lst) is changing while 'while' is running
             if lst[i] == entry:
                 lst.insert(i + 1, elem)
                 i += 1  #추가한 elem 빼고 그 다음부터 추적해야.
             i += 1
+            
+    #없으면 아예 추적 안하고 바로 lst return
     return lst
 
 
