@@ -78,8 +78,7 @@ def perms(seq):
     """
     "*** YOUR CODE HERE ***"
     #returns a generator that yields all permutations of seq
-    assume; seq != []
-    
+    seq = list(seq)
     if len(seq) == 1:
       yield [seq[0]]
     else:
