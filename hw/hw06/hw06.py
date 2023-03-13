@@ -189,9 +189,22 @@ class Player:
 
     def debate(self, other):
         "*** YOUR CODE HERE ***"
+        possibility = max(0.1, self.popularity / (self.popularity + other.popularity))
+        
+        if possibility > random():
+            self.popularity += 50
+        else:
+            self.popularity -= 50
+
+        if self.popularity < 0:
+            self.popularity = 0
+
 
     def speech(self, other):
         "*** YOUR CODE HERE ***"
+        self.votes += self.popularity // 10
+        self.popularity += self.popularity // 10
+        other.popularity -= other.popularity // 10
 
     def choose(self, other):
         return self.speech
@@ -216,6 +229,11 @@ class Game:
     def play(self):
         while not self.game_over():
             "*** YOUR CODE HERE ***"
+            current_player = self.p1 if self.turn % 2 == 0 else self.p2
+            other_player = self.p2 if self.turn % 2 == 0 else self.p1
+            current_player.choose(other_player)(other_player)
+            self.turn += 1
+
         return self.winner()
 
     def game_over(self):
@@ -223,6 +241,11 @@ class Game:
 
     def winner(self):
         "*** YOUR CODE HERE ***"
+        if self.p1.votes > self.p2.votes:
+            return self.p1
+        elif self.p1.votes < self.p2.votes:
+            return self.p2
+        return None
 
 
 # Phase 3: New Players
