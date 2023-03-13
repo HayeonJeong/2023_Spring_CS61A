@@ -229,9 +229,12 @@ class Game:
     def play(self):
         while not self.game_over():
             "*** YOUR CODE HERE ***"
-            current_player = self.p1 if self.turn % 2 == 0 else self.p2
-            other_player = self.p2 if self.turn % 2 == 0 else self.p1
-            current_player.choose(other_player)(other_player)
+            if self.turn % 2 == 0:
+                method = self.p1.choose(self.p2)
+                method(self.p2)
+            else:
+                method = self.p2.choose(self.p1)
+                method(self.p1)
             self.turn += 1
 
         return self.winner()
