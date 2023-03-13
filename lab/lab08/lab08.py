@@ -74,3 +74,23 @@ class FreeChecking(Account):
     free_withdrawals = 2
 
     "*** YOUR CODE HERE ***"
+
+    #override
+    def withdraw(self, amount):
+        if amount > self.balance:
+            self.free_withdrawals -= 1
+            return "Insufficient funds"
+        if amount > self.max_withdrawal:
+            self.free_withdrawals -= 1
+            return "Can't withdraw that amount"
+        
+        if self.free_withdrawals <= 0:
+            self.balance = self.balance - amount - self.withdraw_fee
+        else:
+            self.balance = self.balance - amount
+
+        if self.balance < 0:
+            return "Insufficient funds"
+
+        self.free_withdrawals -= 1
+        return self.balance
