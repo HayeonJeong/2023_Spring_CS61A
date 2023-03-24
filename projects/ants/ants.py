@@ -500,23 +500,26 @@ class SlowThrower(ThrowerAnt):
     name = 'Slow'
     food_cost = 6
     # BEGIN Problem 13
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
+    left_turn = 0
     # END Problem 13
 
     def throw_at(self, target):
 
         # BEGIN Problem 13
-        if _______________:
-            ____________________ = _____
+        if target:
+            self.left_turn = 5
 
             def slow_action(gamestate):
-                if ____________________:
-                    ____________________ -= _____
-                    if ____________________:
-                        ____________________
+                
+                if self.left_turn > 0:
+                    self.left_turn -= 1
+                    if gamestate.time % 2 == 0:
+                        target.action(gamestate)
                 else:
-                    ____________________
-            ____________________
+                    target.action(gamestate)
+
+            target.action = slow_action
             # END Problem 13
 
 
