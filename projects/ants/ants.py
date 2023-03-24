@@ -507,20 +507,19 @@ class SlowThrower(ThrowerAnt):
     def throw_at(self, target):
 
         # BEGIN Problem 13
-        if target:
-            self.left_turn = 5
+        if target :
+            target.is_slowed = 5
 
             def slow_action(gamestate):
-                
-                if self.left_turn > 0:
-                    self.left_turn -= 1
+                if target.is_slowed >0:
+                    target.is_slowed -= 1
                     if gamestate.time % 2 == 0:
-                        target.action(gamestate)
+                        Bee.action(target, gamestate)
                 else:
-                    target.action(gamestate)
-
+                    Bee.action(target, gamestate)
             target.action = slow_action
             # END Problem 13
+
 
 
 class AntRemover(Ant):
