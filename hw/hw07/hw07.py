@@ -146,6 +146,17 @@ def add_d_leaves(t, v):
         10
     """
     "*** YOUR CODE HERE ***"
+    def helper(t, depth):
+      if t.is_leaf():
+          for i in range(depth):
+              t.branches.append(Tree(v))
+      else:
+          for b in t.branches:
+              helper(b, depth+1)
+          for i in range(depth):
+              t.branches.append(Tree(v))
+    helper(t, 0)
+              
 
 
 class Link:
