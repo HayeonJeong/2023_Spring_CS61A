@@ -33,8 +33,7 @@
     (cond
         ((null? lst) '())
  
-        ;중복 판별은 첫 번째 함수 실행 시에 수행,
-        ;이후의 재귀 호출에서는 중복 판별이 이미 수행된 결과 리스트에 새로운 항목들이 추가되는 것.
+        ;filter 함수의 역할 = car과 같은 요소를 cdr에서 모두 제거.
         (else (cons (car lst) (no-repeats (
             filter (lambda (x) (not (= x (car lst)))) (cdr lst)))))
     )
