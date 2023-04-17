@@ -10,7 +10,7 @@
 
 
 (define (my-filter pred s) 
-    (cond ((null? s) s)
+    (cond ((null? s) '())
 
           ((pred (car s))
             (cons (car s) (my-filter pred (cdr s))))
@@ -27,9 +27,11 @@
     )
 )
 
+
 (define (no-repeats lst)
   (cond
-    ((null? lst) lst)
+    ((null? lst) '())
+
     (else (cons (car lst) (no-repeats (
       filter (lambda (x) (not (= x (car lst)))) (cdr lst)))))
   )
