@@ -15,20 +15,21 @@ def calc_eval(exp):
     3
     """
     if isinstance(exp, Pair):
-        operator = ____________  # UPDATE THIS FOR Q3
-        operands = ____________  # UPDATE THIS FOR Q3
+        operator = exp.first  # UPDATE THIS FOR Q3
+        # recursion -> 다시 calc_eval에 들어가면, "//" 같은 건 OPERATORS에 포함이니까 이제야 // 계산을 할 것.
+        operands = exp.rest # UPDATE THIS FOR Q3
         if operator == 'and':  # and expressions
             return eval_and(operands)
         elif operator == 'define':  # define expressions
             return eval_define(operands)
         else:  # Call expressions
-            return calc_apply(___________, ___________)  # UPDATE THIS FOR Q3
+            return calc_apply(calc_eval(operator), operands.map(calc_eval))  # UPDATE THIS FOR Q3
     elif exp in OPERATORS:   # Looking up procedures
         return OPERATORS[exp]
     elif isinstance(exp, int) or isinstance(exp, bool):   # Numbers and booleans
         return exp
-    elif _________________:  # CHANGE THIS CONDITION FOR Q5
-        return _________________  # UPDATE THIS FOR Q5
+    elif exp in bindings:  # CHANGE THIS CONDITION FOR Q5
+        return bindings[exp]  # UPDATE THIS FOR Q5
 
 
 def calc_apply(op, args):
@@ -51,6 +52,13 @@ def floor_div(expr):
     2
     """
     # BEGIN SOLUTION Q3
+    if expr.rest == nil:
+        return expr.first
+    
+    next_input = expr.first // expr.rest.first
+
+
+    return floor_div(Pair(next_input, expr.rest.rest))
 
 
 def eval_and(operands):
@@ -69,9 +77,21 @@ def eval_and(operands):
     1
     """
     # BEGIN SOLUTION Q4
+    if operands.rest == nil:
+        return calc_eval(operands.first)
+    
+    elif operands.first == 0:
+        if operands.rest.first == True:
+            return eval_and(Pair(operands.rest.first, operands.rest.rest))
+
+    elif operands.first and operands.rest.first:
+        return eval_and(Pair(operands.rest.first, operands.rest.rest))
+
+    return False
 
 
 bindings = {}
+#name: value
 
 
 def eval_define(expr):
@@ -86,6 +106,15 @@ def eval_define(expr):
     1
     """
     # BEGIN SOLUTION Q5
+    if type(expr.rest.first) == str:
+        if expr.rest.first in bindings:
+            bindings[expr.first] = bindings[expr.rest.first]
+    
+    else:
+        bindings[expr.first] = expr.rest.first
+
+    return expr.first
+    
 
 
 OPERATORS = {"//": floor_div, "+": addition, "-": subtraction, "*": multiplication, "/": division}
