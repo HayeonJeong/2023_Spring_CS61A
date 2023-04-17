@@ -1,4 +1,22 @@
-(define (substitute s old new) 'YOUR-CODE-HERE)
+(define (substitute s old new) 
+  (cond ((null? s) '()) ;length = 0
+
+        ((pair? s)
+          (if (equal? (car s) old)
+              (cons new (substitute (cdr s) old new))
+              
+              ;else
+              ;(cons (car s) (substitute (cdr s) old new))
+              
+              (cons (substitute (car s) old new)
+                    (substitute (cdr s) old new))
+        ))
+        
+        ;length = 1
+        ((equal? s old) new)
+        (else s)
+  )
+)
 
 ; Feel free to use these helper procedures in your solution
 (define (map fn s)
