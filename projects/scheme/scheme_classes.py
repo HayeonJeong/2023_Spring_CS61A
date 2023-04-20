@@ -16,7 +16,9 @@ class Frame:
 
     def __init__(self, parent):
         """An empty frame with parent frame PARENT (which may be None)."""
+        #(define x 5), (define y 10) -> bindings = {'x': 5, 'y': 10}
         self.bindings = {}
+        #the parent of the Global Frame is None.
         self.parent = parent
 
     def __repr__(self):
@@ -29,12 +31,17 @@ class Frame:
         """Define Scheme SYMBOL to have VALUE."""
         # BEGIN PROBLEM 1
         "*** YOUR CODE HERE ***"
+        self.bindings[symbol] = value
         # END PROBLEM 1
 
     def lookup(self, symbol):
         """Return the value bound to SYMBOL. Errors if SYMBOL is not found."""
         # BEGIN PROBLEM 1
         "*** YOUR CODE HERE ***"
+        if symbol in self.bindings:
+            return self.bindings[symbol]
+        elif self.parent is not None:
+            return self.parent.lookup(symbol)
         # END PROBLEM 1
         raise SchemeError('unknown identifier: {0}'.format(symbol))
 
