@@ -127,7 +127,7 @@ def yield_paths(t, value):
     #if is_leaf(t) and label(t) == value:
     #t2의 경우, leaf가 아닌 2를 찾아가는 경로도 yield.
     if label(t) == value:
-        yield [value]
+        yield [label(t)]
     for b in branches(t):
         for y in yield_paths(b, value): #similar way with Q3
             "*** YOUR CODE HERE ***"
